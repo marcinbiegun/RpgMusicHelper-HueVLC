@@ -42,4 +42,11 @@ class Scene
       :brightness => values[2].to_i
     }
   end
+
+  def color
+    h = 360 * (light_config[:hue]/HUE_HUE_RANGE.last.to_f)
+    s = 100 * (light_config[:saturation]/HUE_SATURATION_RANGE.last.to_f)
+    l = 100 * (light_config[:brightness]/HUE_BRIGHTNESS_RANGE.last.to_f)
+    Paleta::Color.new(:hsl, h, s, l)
+  end
 end
