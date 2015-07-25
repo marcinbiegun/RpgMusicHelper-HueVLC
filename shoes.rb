@@ -20,32 +20,42 @@ LIGHT_TRANSITION_TIME = 25 # * 0.1s
 
 Shoes.app(width: 300, height: 400) do
   @master = Master.new
+  @scene_buttons = []
+
   stack {
     Scene.all.each do |scene_name|
       flow {
         oval(top: 5, left: 5, radius: 10)
-        b = button(scene_name.capitalize)
-        b.style(margin_left: 30)
-        b.instance_variable_set(:@scene_name, scene_name)
-        b.click do |x|
-          @master.set_scene(x.instance_variable_get(:@scene_name))
-          x.style(underline: "single")
-        end
+        butt = button(scene_name.capitalize)
+        butt.style(margin_left: 30)
+        butt.instance_variable_set(:@scene_name, scene_name)
+        @scene_buttons << butt
       }
     end
 
-    flow(margin_top: 50) {
-      para "VLC "
-      @vlc_status = edit_line
-      @vlc_status.text = "Connecting..."
-      @vlc_status.style(state: "disabled")
-    }
-
-    flow {
-      para "HUE "
-      @hue_status = edit_line
-      @hue_status.text = "Connecting..."
-      @hue_status.style(state: "disabled")
+    stack(margin_top: 50) {
+      para "Connections status:"
+      flow {
+        para "VLC "
+        @vlc_status = edit_line
+        @vlc_status.text = "Connecting..."
+      }
+      flow {
+        para "HUE "
+        @hue_status = edit_line
+        @hue_status.text = "Connecting..."
+      }
     }
   }
+
+  # Buttons for changing scene
+  @scene_buttons.each do |scene_button|
+    scene_button.click do |butt|
+      @master.set_scene(butt.instance_variable_get(:@scene_name))
+    end
+  end
+
+  # Check connections
+  @vlc_status.text = @master.vlc_error || "OK"
+  @hue_status.text = @master.hue_error || "OK"
 end

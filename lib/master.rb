@@ -1,7 +1,4 @@
 class Master
-  def initialize
-    vlc && hue # init connections
-  end
 
   def start_loop
     loop do
@@ -15,6 +12,26 @@ class Master
     @scene = Scene.new(scene_name)
     set_playlist
     set_lights
+  end
+
+  def vlc_error
+    @vlc_error ||= begin
+      vlc
+    rescue => error
+      error.to_s
+    else
+      nil
+    end
+  end
+
+  def hue_error
+    @hue_error ||= begin
+      hue
+    rescue => error
+      error.to_s
+    else
+      nil
+    end
   end
 
   private
