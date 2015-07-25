@@ -15,6 +15,8 @@ require_relative './lib/master.rb'
 #
 # hue.txt format is: "hue,saturation,brightness"
 
+APP_TITLE = "Hammer 2000"
+
 HUE_HUE_RANGE = 0..65535
 HUE_SATURATION_RANGE = 0..255
 HUE_BRIGHTNESS_RANGE = 0..255
@@ -26,13 +28,13 @@ PROJECT_DIR = Dir.pwd
 HUE_FILE = "hue.txt"
 LIGHT_TRANSITION_TIME = 25 # * 0.1s
 
-Shoes.app(width: 300, height: 400) do
+Shoes.app(title: APP_TITLE, width: 300, height: 400) do
   @master = Master.new
   @scene_buttons = []
 
   stack {
     Scene.all.each do |scene_name|
-      flow {
+      flow(fill: red) {
         scene = Scene.new(scene_name)
         oval(top: 5, left: 5, radius: 10, fill: "##{scene.color.hex}")
         butt = button(scene_name.capitalize)
@@ -46,14 +48,12 @@ Shoes.app(width: 300, height: 400) do
     stack(margin_top: 50) {
       para "Connections status:"
       flow {
-        para "VLC "
-        @vlc_status = edit_line
-        @vlc_status.text = "Connecting..."
+        para "VLC: "
+        @vlc_status = para "Connecting..."
       }
       flow {
-        para "HUE "
-        @hue_status = edit_line
-        @hue_status.text = "Connecting..."
+        para "HUE: "
+        @hue_status = para "Connecting..."
       }
     }
   }
@@ -66,6 +66,18 @@ Shoes.app(width: 300, height: 400) do
   end
 
   # Check connections
-  @vlc_status.text = @master.vlc_error || "OK"
-  @hue_status.text = @master.hue_error || "OK"
+  if @master.vlc_error
+    @vlc_status.text = @master.vlc_error
+    @vlc_status.style(stroke: red)
+  else
+    @vlc_status.text = "Connected"
+    @vlc_status.style(stroke: green)
+  end
+  if @master.hue_error
+    @hue_status.text = @master.hue_error
+    @hue_status.style(stroke: red)
+  else
+    @hue_status.text = "Connected"
+    @hue_status.style(stroke: green)
+  end
 end
