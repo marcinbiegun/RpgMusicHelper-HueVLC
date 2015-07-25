@@ -34,8 +34,9 @@ Shoes.app(title: APP_TITLE, width: 300, height: 400) do
 
   stack {
     Scene.all.each do |scene_name|
-      flow(fill: red) {
+      flow {
         scene = Scene.new(scene_name)
+        background scene.color_hex
         oval(top: 5, left: 5, radius: 10, fill: "##{scene.color.hex}")
         butt = button(scene_name.capitalize)
         butt.style(margin_left: 30)

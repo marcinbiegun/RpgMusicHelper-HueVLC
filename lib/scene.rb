@@ -49,4 +49,8 @@ class Scene
     l = 100 * (light_config[:brightness]/HUE_BRIGHTNESS_RANGE.last.to_f)
     Paleta::Color.new(:hsl, h, s, l)
   end
+
+  def color_hex
+    "#" + color.hex
+  end
 end
