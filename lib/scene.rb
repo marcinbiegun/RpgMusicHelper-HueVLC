@@ -44,9 +44,9 @@ class Scene
   end
 
   def color
-    h = 360 * (light_config[:hue]/HUE_HUE_RANGE.last.to_f)
-    s = 100 * (light_config[:saturation]/HUE_SATURATION_RANGE.last.to_f)
-    l = 100 * (light_config[:brightness]/HUE_BRIGHTNESS_RANGE.last.to_f)
+    h = (360 * (light_config[:hue]/HUE_HUE_RANGE.last.to_f)).to_i
+    s = (100 * (light_config[:saturation]/HUE_SATURATION_RANGE.last.to_f)).to_i
+    l = (50 * (light_config[:brightness]/HUE_BRIGHTNESS_RANGE.last.to_f)).to_i
     Paleta::Color.new(:hsl, h, s, l)
   end
 
