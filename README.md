@@ -11,6 +11,8 @@ It's intended for RPG game master's use.
 
 ## Setup
 
+The app was tested on macOS only, but should run on Windows and Linux too.
+
 Set colors and music:
 
 1. Put your music in `scenes/SCENE_NAME` directories.
