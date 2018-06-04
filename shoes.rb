@@ -11,11 +11,7 @@ require 'paleta'
 require_relative './lib/scene.rb'
 require_relative './lib/master.rb'
 
-# /Applications/VLC.app/Contents/MacOS/VLC --extraintf rc --rc-host 192.168.1.111:9999
-#
-# hue.txt format is: "hue,saturation,brightness"
-
-APP_TITLE = "Hammer 2000"
+APP_TITLE = "Rpg Music Helper"
 
 HUE_HUE_RANGE = 0..65535
 HUE_SATURATION_RANGE = 0..255
