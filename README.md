@@ -7,6 +7,8 @@ player instance runnig in the background.
 
 It's intended for RPG game master's use.
 
+![Screenshot](https://raw.githubusercontent.com/marcinbiegun/RpgMusicHelper-HueVLC/master/docs/screenshot.png)
+
 ## Setup
 
 Set colors and music:
